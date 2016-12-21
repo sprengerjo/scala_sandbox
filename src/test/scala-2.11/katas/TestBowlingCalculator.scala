@@ -1,38 +1,34 @@
 package katas
 
-import org.scalatest.{BeforeAndAfterEach, FlatSpec, Matchers}
+import org.scalatest.{FlatSpec, Matchers}
 
-/**
-  * Created by sprengerjo on 21/09/16.
-  */
-class TestBowlingCalculator extends FlatSpec with Matchers with BeforeAndAfterEach {
+class  TestBowling extends FlatSpec with Matchers {
 
-  var g: BowlingCalculator = _
+  val scoreOf = BowlingCalculator.scoreOf(_)
 
-  override def beforeEach(): Unit = g = new BowlingCalculator()
-
-  "gutter game" should "score 0" in {
-    val scores = List.fill(20)(0)
-    g.calculate(scores) should be(0)
+  "gutter games" should "score 0" in {
+    val rolls = List.fill(20)(0)
+    scoreOf(rolls) should be(0)
   }
 
-  "one pin rolls only" should "score 20" in {
-    val scores = List.fill(20)(1)
-    g.calculate(scores) should be(20)
+  "one pin games" should "score 20" in {
+    val rolls = List.fill(20)(1)
+    scoreOf(rolls) should be(20)
   }
 
-  "spare bonus" should "be added" in {
-    val scores = List.fill(18)(4)
-    g.calculate(List(4, 6) ::: scores) should be(4 + 6 + 4 + 18 * 4)
+  "one spare bonus" should "be added" in {
+    val rolls = List(4, 6) ::: List.fill(18)(4)
+    scoreOf(rolls) should be(4 + 6 + 4 + 18 * 4)
   }
 
-  "strike bonus" should "be added" in {
-    val scores = List.fill(18)(4)
-    g.calculate(10 :: scores) should be(10 + 4 + 4 + 18 * 4)
+  "one strike bonus" should "be added" in {
+    val rolls = 10 :: List.fill(18)(4)
+    scoreOf(rolls) should be(10 + 4 + 4 + 18 * 4)
   }
 
-  "perfect games" should "score 3000" in {
-    val scores = List.fill(12)(10)
-    g.calculate(scores) should be(300)
+  "perfect game" should "score 300" in {
+    val rolls = List.fill(12)(10)
+    scoreOf(rolls) should be(300)
   }
+
 }

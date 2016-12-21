@@ -1,4 +1,4 @@
-name := "maiin"
+name := "main"
 
 version := "1.0"
 
@@ -10,7 +10,9 @@ scalacOptions := Seq("-unchecked", "-deprecation", "-feature", "-encoding", "utf
 
 libraryDependencies ++=
   Seq(
-    "com.typesafe.akka" %% "akka-actor" % "2.4.10",
-    "org.scalatest" %% "scalatest" % "2.2.6" % Test,
-    "junit" % "junit" % "4.12" % Test
+    "com.typesafe.akka" %% "akka-actor" % "2.4.11",
+    "com.typesafe.akka" %% "akka-http" % "3.0.0-RC1",
+    "org.scalatest" %% "scalatest" % "3.0.0" % Test,
+    "junit" % "junit" % "4.12" % Test,
+    "org.scalamock" %% "scalamock-specs2-support" % "3.4.1" % Test
   )
