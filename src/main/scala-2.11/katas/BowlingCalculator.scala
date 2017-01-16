@@ -1,13 +1,17 @@
 package katas
 
+/**
+  * Created by sprengerjo on 15/01/2017.
+  */
+
 object BowlingCalculator {
 
-  def scoreOf(rolls: List[Int]): Int = bonus(rolls) :: rolls reduceLeft(_ +_ )
+  def scoreOf(scores: List[Int]): Int =
+    scores.reduceLeft(_ + _) + bonus(scores)
 
-  private def bonus(rolls: List[Int]): Int = {
-    if(rolls.size <= 3) 0
-    else if(rolls.head  == 10) rolls(1) + rolls(2) + bonus(rolls.tail)
-    else if(rolls.head + rolls(1) == 10) rolls(2) + bonus(rolls.drop(2))
-    else bonus(rolls.drop(2))
+  def bonus(scores: List[Int]): Int = scores match {
+    case  _ :: _ :: Nil | _ :: _ :: _ :: Nil => 0
+    case a :: xs if (a == 10) => xs.head + xs(1) + bonus(xs)
+    case a :: b :: xs => if (a + b == 10) xs.head + bonus(xs) else bonus(xs)
   }
 }
